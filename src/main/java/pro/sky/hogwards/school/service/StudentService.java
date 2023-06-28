@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-    private Map<Long, Student> students = new HashMap<>();
-    static long id = 0;
 
     final private StudentRepository studentRepository;
 
@@ -20,33 +18,30 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student createStudent(Student student) {
-        student.setId(++id);
-        students.put(id, student);
-        return student;
+    public Student save(Student student) {
+        return studentRepository.save(student);
     }
 
     public Student getStudentById(Long id) {
-        return students.get(id);
+        return studentRepository.findById(id).get();
     }
 
-    public Student updateStudentById(Long id, Student student) {
-        student.setId(id);
-        if (students.values().contains(student)) {
-            students.put(id, student);
-            return student;
-        }
-        return null;
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student);
     }
 
     public void deleteStudentById(Long id) {
-        students.remove(id);
+        studentRepository.deleteById(id);
     }
 
     public List<Student> findStudentByAge(int age) {
-
-        return students.values().stream()
+        return studentRepository.findAll().stream()
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toList());
+    }
+
+    //find all students
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
     }
 }

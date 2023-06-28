@@ -7,45 +7,36 @@ import pro.sky.hogwards.school.repository.FacultyRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class HouseService {
-    private Map<Long, Faculty> houses = new HashMap<>();
-    private static long id = 0;
-
     private final FacultyRepository facultyRepository;
 
     public HouseService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
 
-    public Faculty createHouse(Faculty house) {
-        house.setId(++id);
-        houses.put(id, house);
-        return house;
+    public Faculty save(Faculty house) {
+        return facultyRepository.save(house);
     }
 
-    public Faculty getHouseById(Long id) {
-        return houses.get(id);
+    public Faculty findHouseById(Long id) {
+        return facultyRepository.findById(id).get();
     }
 
-    public Faculty updateHouseById(Long id, Faculty house) {
-        house.setId(id);
-        if (houses.values().contains(house)) {
-            houses.put(id, house);
-            return house;
-        }
-        return null;
+    public Faculty updateHouse(Faculty house) {
+        return facultyRepository.save(house);
     }
 
     public void deleteHouseById(Long id) {
-        houses.remove(id);
+        facultyRepository.deleteById(id);
     }
 
     //get List of houses by color
     public List<Faculty> findHouseByColor(String color) {
-        return houses.values().stream()
+        return facultyRepository.findAll().stream()
                 .filter(house -> house.getColor().equals(color))
                 .collect(Collectors.toList());
     }

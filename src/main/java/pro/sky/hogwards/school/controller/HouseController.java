@@ -52,4 +52,10 @@ public class HouseController {
     public ResponseEntity<List<Faculty>> findHouseByColor(@PathVariable String color) {
         return ResponseEntity.ok(houseService.findHouseByColor(color));
     }
+
+    //find house by name
+    @GetMapping("/findHouseByName/{name}")
+    public ResponseEntity<Faculty> findHouseByName(@PathVariable String name) {
+        return ResponseEntity.ok(houseService.findHouseByName(name));
+    }
 }

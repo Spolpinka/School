@@ -1,13 +1,11 @@
 package pro.sky.hogwards.school.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.sky.hogwards.school.model.Student;
 import pro.sky.hogwards.school.service.StudentService;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -31,13 +29,13 @@ public class StudentController {
 
     //create student
     @GetMapping("/createStudent")
-    public ResponseEntity<Student> createStudent(@PathVariable Student student) {
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return ResponseEntity.ok(studentService.save(student));
     }
 
     //edit student
     @GetMapping("/editStudent")
-    public ResponseEntity<Student> editStudent(@PathVariable Student student) {
+    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
@@ -51,5 +49,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.findStudentByAge(age));
     }
 
+    //find student by age between min and max
+    @GetMapping("/findStudentByAgeBetween/{min}/{max}")
+    public ResponseEntity<Collection<Student>> findStudentByAgeBetween(@PathVariable int min, @PathVariable int max) {
+        return ResponseEntity.ok(studentService.findStudentByAgeBetween(min, max));
+    }
 
 }

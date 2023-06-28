@@ -41,4 +41,8 @@ public class HouseService {
                 .collect(Collectors.toList());
     }
 
+    public Faculty findHouseByName(String name) {
+        return facultyRepository.findByNameIgnoreCase(name);
+    }
+
 }

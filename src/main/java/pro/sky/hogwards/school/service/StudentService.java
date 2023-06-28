@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.hogwards.school.model.Student;
 import pro.sky.hogwards.school.repository.StudentRepository;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,10 @@ public class StudentService {
     //find all students
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
+    }
+
+    //find student by id between min and max
+    public Collection<Student> findStudentByAgeBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
     }
 }

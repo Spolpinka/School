@@ -47,12 +47,27 @@ public class StudentService {
     public List<StudentDTO> findAllStudents() {
         return studentRepository.findAll().stream()
                 .map(StudentDTO::fromStudent)
+                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
     //find student by id between min and max
     public Collection<StudentDTO> findStudentByAgeBetween(int min, int max) {
         return studentRepository.findByAgeBetween(min, max).stream()
+                .map(StudentDTO::fromStudent)
+                .collect(Collectors.toList());
+    }
+
+    public int getCountOfStudents() {
+        return studentRepository.getCountOfStudents();
+    }
+
+    public double getAverageAgeOfStudents() {
+        return studentRepository.getAverageAgeOfStudents();
+    }
+
+    public Collection<StudentDTO> getFiveYoungestStudents() {
+        return studentRepository.getFiveYoungestStudents().stream()
                 .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
     }

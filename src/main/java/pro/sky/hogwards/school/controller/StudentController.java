@@ -56,4 +56,20 @@ public class StudentController {
         return ResponseEntity.ok(studentService.findStudentByAgeBetween(min, max));
     }
 
+    //get count of students in DB
+    @GetMapping("/getCountOfStudents")
+    public ResponseEntity<Integer> getCountOfStudents() {
+        return ResponseEntity.ok(studentService.getCountOfStudents());
+    }
+
+    //get average age of students in DB
+    @GetMapping("/getAverageAgeOfStudents")
+    public ResponseEntity<Double> getAverageAgeOfStudents() {
+        return ResponseEntity.ok(studentService.getAverageAgeOfStudents());
+    }
+
+    @GetMapping("/getFiveYoungestStudents")
+    public ResponseEntity<Collection<StudentDTO>> getFiveYoungestStudents() {
+        return ResponseEntity.ok(studentService.getFiveYoungestStudents());
+    }
 }

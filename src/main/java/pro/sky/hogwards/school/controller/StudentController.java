@@ -72,4 +72,10 @@ public class StudentController {
     public ResponseEntity<Collection<StudentDTO>> getFiveYoungestStudents() {
         return ResponseEntity.ok(studentService.getFiveYoungestStudents());
     }
+
+    //get all student pagenation (by pages)
+    @GetMapping
+    public ResponseEntity<Collection<StudentDTO>> getAllStudentsPagenation(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return ResponseEntity.ok(studentService.findAllStudents(page, size));
+    }
 }

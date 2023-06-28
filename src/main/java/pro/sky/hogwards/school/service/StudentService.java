@@ -1,14 +1,12 @@
 package pro.sky.hogwards.school.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import pro.sky.hogwards.school.model.Student;
 import pro.sky.hogwards.school.model.StudentDTO;
 import pro.sky.hogwards.school.repository.StudentRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +46,17 @@ public class StudentService {
         return studentRepository.findAll().stream()
                 .map(StudentDTO::fromStudent)
                 .peek(System.out::println)
+                .collect(Collectors.toList());
+    }
+
+    public List<StudentDTO> findAllStudents(int page, int size) {
+        if (size < 0 || size > 50) {
+            System.out.println("Size must be between 0 and 50");
+            size = 50;
+        }
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        return studentRepository.findAll(pageRequest).stream()
+                .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
     }
 

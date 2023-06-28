@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,6 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+    @OneToMany(mappedBy = "faculty")
+    private List<Student> student;
 }

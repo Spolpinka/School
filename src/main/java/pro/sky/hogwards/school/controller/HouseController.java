@@ -3,6 +3,7 @@ package pro.sky.hogwards.school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.hogwards.school.model.Faculty;
+import pro.sky.hogwards.school.model.FacultyDTO;
 import pro.sky.hogwards.school.service.HouseService;
 
 import java.util.List;
@@ -18,23 +19,23 @@ public class HouseController {
 
     //find house by id
     @GetMapping("/findHouseById/{id}")
-    public ResponseEntity<Faculty> findHouseById(@PathVariable Long id) {
-        Faculty faculty = houseService.findHouseById(id);
-        if (faculty == null) {
+    public ResponseEntity<FacultyDTO> findHouseById(@PathVariable Long id) {
+        FacultyDTO facultyDTO = houseService.findHouseById(id);
+        if (facultyDTO == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(faculty);
+        return ResponseEntity.ok(facultyDTO);
     }
 
     //create house
     @GetMapping("/createHouse")
-    public ResponseEntity<Faculty> createHouse(@RequestBody Faculty house) {
+    public ResponseEntity<FacultyDTO> createHouse(@RequestBody FacultyDTO house) {
         return ResponseEntity.ok(houseService.save(house));
     }
 
     //edit house
     @GetMapping("/editHouse")
-    public ResponseEntity<Faculty> editHouse(@RequestBody Faculty house) {
+    public ResponseEntity<FacultyDTO> editHouse(@RequestBody FacultyDTO house) {
         return ResponseEntity.ok(houseService.updateHouse(house));
     }
 
@@ -49,7 +50,7 @@ public class HouseController {
 
     //find house by color
     @GetMapping("/findHouseByColor/{color}")
-    public ResponseEntity<List<Faculty>> findHouseByColor(@PathVariable String color) {
+    public ResponseEntity<List<FacultyDTO>> findHouseByColor(@PathVariable String color) {
         return ResponseEntity.ok(houseService.findHouseByColor(color));
     }
 

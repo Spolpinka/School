@@ -2,6 +2,7 @@ package pro.sky.hogwards.school.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.hogwards.school.model.Student;
+import pro.sky.hogwards.school.model.StudentDTO;
 import pro.sky.hogwards.school.repository.StudentRepository;
 
 import java.util.Collection;
@@ -19,35 +20,40 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student save(Student student) {
-        return studentRepository.save(student);
+    public StudentDTO save(StudentDTO student) {
+        return StudentDTO.fromStudent(studentRepository.save(student.toStudent()));
     }
 
-    public Student getStudentById(Long id) {
-        return studentRepository.findById(id).get();
+    public StudentDTO getStudentById(Long id) {
+        return StudentDTO.fromStudent(studentRepository.findById(id).get());
     }
 
-    public Student updateStudent(Student student) {
-        return studentRepository.save(student);
+    public StudentDTO updateStudent(StudentDTO student) {
+        return StudentDTO.fromStudent(studentRepository.save(student.toStudent()));
     }
 
     public void deleteStudentById(Long id) {
         studentRepository.deleteById(id);
     }
 
-    public List<Student> findStudentByAge(int age) {
+    public List<StudentDTO> findStudentByAge(int age) {
         return studentRepository.findAll().stream()
                 .filter(student -> student.getAge() == age)
+                .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
     }
 
     //find all students
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentDTO> findAllStudents() {
+        return studentRepository.findAll().stream()
+                .map(StudentDTO::fromStudent)
+                .collect(Collectors.toList());
     }
 
     //find student by id between min and max
-    public Collection<Student> findStudentByAgeBetween(int min, int max) {
-        return studentRepository.findByAgeBetween(min, max);
+    public Collection<StudentDTO> findStudentByAgeBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max).stream()
+                .map(StudentDTO::fromStudent)
+                .collect(Collectors.toList());
     }
 }

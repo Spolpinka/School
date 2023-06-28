@@ -2,6 +2,7 @@ package pro.sky.hogwards.school.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.hogwards.school.model.Faculty;
+import pro.sky.hogwards.school.model.FacultyDTO;
 import pro.sky.hogwards.school.repository.FacultyRepository;
 
 import java.util.HashMap;
@@ -18,16 +19,16 @@ public class HouseService {
         this.facultyRepository = facultyRepository;
     }
 
-    public Faculty save(Faculty house) {
-        return facultyRepository.save(house);
+    public FacultyDTO save(FacultyDTO house) {
+        return FacultyDTO.fromFaculty(facultyRepository.save(house.toFaculty()));
     }
 
-    public Faculty findHouseById(Long id) {
-        return facultyRepository.findById(id).get();
+    public FacultyDTO findHouseById(Long id) {
+        return FacultyDTO.fromFaculty(facultyRepository.findById(id).get());
     }
 
-    public Faculty updateHouse(Faculty house) {
-        return facultyRepository.save(house);
+    public FacultyDTO updateHouse(FacultyDTO house) {
+        return FacultyDTO.fromFaculty(facultyRepository.save(house.toFaculty()));
     }
 
     public void deleteHouseById(Long id) {
@@ -35,9 +36,10 @@ public class HouseService {
     }
 
     //get List of houses by color
-    public List<Faculty> findHouseByColor(String color) {
+    public List<FacultyDTO> findHouseByColor(String color) {
         return facultyRepository.findAll().stream()
                 .filter(house -> house.getColor().equals(color))
+                .map(FacultyDTO::fromFaculty)
                 .collect(Collectors.toList());
     }
 

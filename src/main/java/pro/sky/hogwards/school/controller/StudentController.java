@@ -19,6 +19,33 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    //find student by id
+    @GetMapping("/findStudentById/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        Student student = studentService.getStudentById(id);
+        if (student == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(student);
+    }
+
+    //create student
+    @GetMapping("/createStudent")
+    public ResponseEntity<Student> createStudent(@PathVariable Student student) {
+        return ResponseEntity.ok(studentService.save(student));
+    }
+
+    //edit student
+    @GetMapping("/editStudent")
+    public ResponseEntity<Student> editStudent(@PathVariable Student student) {
+        return ResponseEntity.ok(studentService.updateStudent(student));
+    }
+
+    //find all students
+    @GetMapping("/findAllStudents")
+    public ResponseEntity<List<Student>> findAllStudents() {
+        return ResponseEntity.ok(studentService.findAllStudents());
+    }
     @GetMapping("/findStudentByAge/{age}")
     public ResponseEntity<List<Student>> findStudentByAge(@PathVariable int age) {
         return ResponseEntity.ok(studentService.findStudentByAge(age));

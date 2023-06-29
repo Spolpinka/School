@@ -36,9 +36,7 @@ public class HouseService {
 
     //get List of houses by color
     public List<Faculty> findHouseByColor(String color) {
-        return facultyRepository.findAll().stream()
-                .filter(house -> house.getColor().equals(color))
-                .collect(Collectors.toList());
+        return facultyRepository.findAllByColor(color);
     }
 
 }

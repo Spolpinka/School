@@ -29,13 +29,13 @@ public class StudentController {
     }
 
     //create student
-    @GetMapping("/createStudent")
+    @PostMapping()
     public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO student) {
         return ResponseEntity.ok(studentService.save(student));
     }
 
     //edit student
-    @GetMapping("/editStudent")
+    @PutMapping()
     public ResponseEntity<StudentDTO> editStudent(@RequestBody StudentDTO student) {
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
@@ -54,6 +54,12 @@ public class StudentController {
     @GetMapping("/findStudentByAgeBetween/{min}/{max}")
     public ResponseEntity<Collection<StudentDTO>> findStudentByAgeBetween(@PathVariable int min, @PathVariable int max) {
         return ResponseEntity.ok(studentService.findStudentByAgeBetween(min, max));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudentById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

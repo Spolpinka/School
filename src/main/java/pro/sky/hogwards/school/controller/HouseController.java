@@ -28,19 +28,19 @@ public class HouseController {
     }
 
     //create house
-    @GetMapping("/createHouse")
+    @PostMapping()
     public ResponseEntity<FacultyDTO> createHouse(@RequestBody FacultyDTO house) {
         return ResponseEntity.ok(houseService.save(house));
     }
 
     //edit house
-    @GetMapping("/editHouse")
+    @PutMapping()
     public ResponseEntity<FacultyDTO> editHouse(@RequestBody FacultyDTO house) {
         return ResponseEntity.ok(houseService.updateHouse(house));
     }
 
     //delete house
-    @GetMapping("/deleteHouse/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHouse(@PathVariable Long id) {
         houseService.deleteHouseById(id);
         return ResponseEntity.ok().build();

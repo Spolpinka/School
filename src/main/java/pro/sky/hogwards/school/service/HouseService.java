@@ -5,10 +5,7 @@ import pro.sky.hogwards.school.model.Faculty;
 import pro.sky.hogwards.school.model.FacultyDTO;
 import pro.sky.hogwards.school.repository.FacultyRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +33,8 @@ public class HouseService {
     }
 
     //get List of houses by color
-    public List<FacultyDTO> findHouseByColor(String color) {
-        return facultyRepository.findAll().stream()
-                .filter(house -> house.getColor().equals(color))
+    public List<FacultyDTO> findHousesByColor(String color) {
+        return facultyRepository.findAllByColorIgnoreCase(color).stream()
                 .map(FacultyDTO::fromFaculty)
                 .collect(Collectors.toList());
     }

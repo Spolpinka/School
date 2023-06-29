@@ -35,8 +35,7 @@ public class StudentService {
     }
 
     public List<StudentDTO> findStudentByAge(int age) {
-        return studentRepository.findAll().stream()
-                .filter(student -> student.getAge() == age)
+        return studentRepository.findAllByAge(age).stream()
                 .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
     }
@@ -45,7 +44,6 @@ public class StudentService {
     public List<StudentDTO> findAllStudents() {
         return studentRepository.findAll().stream()
                 .map(StudentDTO::fromStudent)
-                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 

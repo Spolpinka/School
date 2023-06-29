@@ -51,7 +51,7 @@ public class HouseController {
     //find house by color
     @GetMapping("/findHouseByColor/{color}")
     public ResponseEntity<List<FacultyDTO>> findHouseByColor(@PathVariable String color) {
-        return ResponseEntity.ok(houseService.findHouseByColor(color));
+        return ResponseEntity.ok(houseService.findHousesByColor(color));
     }
 
     //find house by name

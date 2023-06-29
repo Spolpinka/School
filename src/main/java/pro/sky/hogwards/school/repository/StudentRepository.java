@@ -7,6 +7,8 @@ import pro.sky.hogwards.school.model.Student;
 import java.util.Collection;
 
 public interface StudentRepository extends JpaRepository<Student, Long>{
+//find all students by age
+    Collection<Student> findAllByAge(int age);
 
     //find student by age between min and max
     Collection<Student> findByAgeBetween(int min, int max);
